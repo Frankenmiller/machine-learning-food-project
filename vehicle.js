@@ -1,9 +1,3 @@
-// The Nature of Code
-// Daniel Shiffman
-// http://natureofcode.com
-
-// The "Vehicle" class
-
 class Vehicle {
   constructor(x, y) {
     this.acceleration = createVector(0, 0);
@@ -28,6 +22,20 @@ class Vehicle {
   applyForce(force) {
     // We could add mass here if we want A = F / M
     this.acceleration.add(force);
+  }
+
+  eat = function(list) {
+    var record = Infinity;
+    var closest = -1;
+    for (var i=0; i<list.length; i++) {
+      console.log(food[i])
+      var d = dist(this.position.x, this.position.y, list[i].x, list[i].y);
+      if (d < record) {
+        record = d;
+        closest = i;
+      }
+    }
+    this.seek(food[closest]);
   }
 
   // A method that calculates a steering force towards a target
