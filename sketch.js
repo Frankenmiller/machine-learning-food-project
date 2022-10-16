@@ -2,9 +2,9 @@ let vehicle;
 let food = [];
 
 function setup() {
-  createCanvas(640, 360).center('horizontal');
+  createCanvas(360, 640).center('horizontal');
   vehicle = new Vehicle(width/2, height/2);
-  for (var i=0; i<10; i++) {
+  for (var i=0; i<50; i++) {
     var x = random(width);
     var y = random(height);
     food.push(createVector(x, y));
