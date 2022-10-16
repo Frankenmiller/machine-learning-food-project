@@ -1,0 +1,23 @@
+html, body {
+	height: 100%;
+  }
+
+body {
+	background: linear-gradient(to top, #1e130c, #9a8478);
+	height: 800px;
+	align-items: center;
+	margin-top: 50px;
+}
+
+#title {
+	top: 0px;
+	left: 50%;
+	color: #FFF;
+	transform: translateX(-50%);
+	position: absolute;
+	text-align: center;
+	font-family: sans-serif;
+	font-weight: 600;
+	padding-bottom: 25px;
+	z-index: 2;
+}
