@@ -75,6 +75,10 @@ class Vehicle {
     // this.applyForce(steer);
   }
 
+  dead = function() {
+    return (this.health < 0);
+  }
+
   display() {
     // Draw a triangle rotated in the direction of velocity
     let angle = this.velocity.heading() + PI / 2;
