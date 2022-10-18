@@ -3,7 +3,7 @@ let food = [];
 let poison = [];
 
 function setup() {
-  createCanvas(360, 640).center('horizontal');
+  createCanvas(360, 540).center('horizontal');
   for (var i=0; i<8; i++) {
     var x = random(width);
     var y = random(height);
