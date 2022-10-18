@@ -5,18 +5,18 @@ let poison = [];
 function setup() {
   createCanvas(360, 600).center('horizontal');
   for (var i=0; i<10; i++) {
-    var x = random(width);
-    var y = random(height);
+    var x = random(25, width -25);
+    var y = random(25, height -25);
     vehicles[i] = new Vehicle(x, y);
   }
   for (var i=0; i<50; i++) {
-    var x = random(width);
-    var y = random(height);
+    var x = random(25, width -25);
+    var y = random(25, height -25);
     food.push(createVector(x, y));
   }
   for (var i=0; i<10; i++) {
-    var x = random(width);
-    var y = random(height);
+    var x = random(25, width -25);
+    var y = random(25, height -25);
     poison.push(createVector(x, y));
   }
 }
@@ -25,8 +25,8 @@ function draw() {
   background(51);
 
   if (random(1) < 0.005) {
-    var x = random(width);
-    var y = random(height);
+    var x = random(25, width -25);
+    var y = random(25, height -25);
     food.push(createVector(x, y));
   }
 
@@ -53,6 +53,7 @@ function draw() {
 
 
   for (var i=vehicles.length -1; i>=0; i--) {
+    vehicles[i].boundaries();
     vehicles[i].behaviors(food, poison);
     vehicles[i].update();
     vehicles[i].display();
