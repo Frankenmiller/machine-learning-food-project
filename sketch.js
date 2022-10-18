@@ -1,16 +1,20 @@
-let vehicle;
+let vehicles = [];
 let food = [];
 let poison = [];
 
 function setup() {
   createCanvas(360, 640).center('horizontal');
-  vehicle = new Vehicle(width/2, height/2);
-  for (var i=0; i<10; i++) {
+  for (var i=0; i<8; i++) {
+    var x = random(width);
+    var y = random(height);
+    vehicles[i] = new Vehicle(x, y);
+  }
+  for (var i=0; i<80; i++) {
     var x = random(width);
     var y = random(height);
     food.push(createVector(x, y));
   }
-  for (var i=0; i<10; i++) {
+  for (var i=0; i<80; i++) {
     var x = random(width);
     var y = random(height);
     poison.push(createVector(x, y));
@@ -44,10 +48,10 @@ function draw() {
   }
 
 
-
-  vehicle.behaviors(food, poison);
-  // vehicle.eat(poison);
-  vehicle.update();
-  vehicle.display();
+  for (var i=0; i<vehicles.length; i++) {
+    vehicles[i].behaviors(food, poison);
+    vehicles[i].update();
+    vehicles[i].display();
+  }
 
 }

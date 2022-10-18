@@ -4,15 +4,17 @@ class Vehicle {
     this.velocity = createVector(0, -2);
     this.position = createVector(x, y);
     this.r = 6;
-    this.maxspeed = 5;
-    this.maxforce = 1.0;
+    this.maxspeed = 1;
+    this.maxforce = .18;
     this.dna = [];
     this.dna[0] = random(-5, 5);
     this.dna[1] = random(-5, 5);
+    this.health = 1;
   }
 
   // Method to update location
   update() {
+    this.health -= 0.001
     // Update velocity
     this.velocity.add(this.acceleration);
     // Limit speed
@@ -28,8 +30,8 @@ class Vehicle {
   }
 
   behaviors = function(good, bad) {
-    var steerG = this.eat(good);
-    var steerB = this.eat(bad);
+    var steerG = this.eat(good, 0.1);
+    var steerB = this.eat(bad, -0.5);
 
     steerG.mult(this.dna[0]);
     steerB.mult(this.dna[1]);
@@ -37,7 +39,7 @@ class Vehicle {
     this.applyForce(steerB);
   }
 
-  eat = function(list) {
+  eat = function(list, nutrition) {
     var record = Infinity;
     var closest = -1;
     for (var i=0; i<list.length; i++) {
@@ -49,6 +51,7 @@ class Vehicle {
     }
     if (record < 8) {
       list.splice(closest, 1);
+      this.health += nutrition;
     } else if (closest != -1) {
       // if another bug arises you can change this line to (closest > -1)
       return this.seek(list[closest]);
@@ -75,21 +78,27 @@ class Vehicle {
   display() {
     // Draw a triangle rotated in the direction of velocity
     let angle = this.velocity.heading() + PI / 2;
-    fill(127);
-    stroke(200);
-    strokeWeight(1);
     push();
     translate(this.position.x, this.position.y);
     rotate(angle);
+    stroke(255, 0, 0);
+    rect(-1, 0, 1, this.dna[0] * 20);
+    stroke(0, 255, 0);
+    rect(-1, 0, 1, this.dna[1] * 20);
+
+    var BLACK = color(0, 0, 0);
+    var WHITE = color(255, 255, 255);
+    var COLOR = lerpColor(BLACK, WHITE, this.health);
+    var BORDER = lerpColor(WHITE, BLACK, this.health);
+
+    fill(COLOR);
+    strokeWeight(2);
+    stroke(BORDER);
     beginShape();
     vertex(0, -this.r * 2);
     vertex(-this.r, this.r * 2);
     vertex(this.r, this.r * 2);
     endShape(CLOSE);
-    stroke(0, 255, 0);
-    line(0, 0, 0, this.dna[0] * 10);
-    stroke(255, 0, 0);
-    line(0, 0, 0, this.dna[1] * 10);
     pop();
   }
 }
