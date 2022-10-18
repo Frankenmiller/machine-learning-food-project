@@ -6,11 +6,12 @@ body {
 	background: linear-gradient(to top, #1e130c, #9a8478);
 	height: 800px;
 	align-items: center;
-	margin-top: 50px;
+	margin-top: 35px;
 }
 
 #title {
-	top: -7.5px;
+	font-size: 12px;
+	top: -10px;
 	left: 50%;
 	color: #FFF;
 	transform: translateX(-50%);
