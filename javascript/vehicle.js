@@ -26,7 +26,7 @@ class Vehicle {
     // Limit speed
     this.velocity.limit(this.maxspeed);
     this.position.add(this.velocity);
-    // Reset accelerationelertion to 0 each cycle
+    // Reset accelertion to 0 each cycle
     this.acceleration.mult(0);
   }
 
@@ -116,15 +116,23 @@ class Vehicle {
     push();
     translate(this.position.x, this.position.y);
     rotate(angle);
-    stroke(255, 0, 0);
+    var food_color = color(0, 255, 0); // green means finds food tasty
+    if (this.dna[0] < 0) {
+      food_color = color(255, 255, 0); // yellow means no attraction to food
+    }
+    var poison_color = color(255, 127, 0); // orange means finds shit tasty
+    if (this.dna[1] < 0) {
+      poison_color = color(255, 0, 0); // red means repelled from poison
+    }
+    stroke(poison_color);
     noFill();
     // attraction to poison
-    rect(-1 + 7.5, 0 + 7.5-2*(this.r), 1, this.dna[0] * 20)-2*(this.r);
+    rect(6.5, -7.5, 1, -abs(this.dna[0] * 20));
     // perception to poison
     ellipse(0, 0, this.dna[2] * 2);
-    stroke(0, 255, 0);
+    stroke(food_color);
     // attraction to food
-    rect(-1 -7.5, 0 -7.5 +2*(this.r), 1, this.dna[1] * 20) +2*(this.r);
+    rect(-6.5, -7.5, 1, -abs(this.dna[1] * 20));
     // perception to food
     ellipse(0, 0, this.dna[3] * 2);
 

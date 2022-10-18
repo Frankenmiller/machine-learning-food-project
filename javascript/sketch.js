@@ -4,7 +4,7 @@ let poison = [];
 
 function setup() {
   createCanvas(360, 600).center('horizontal');
-  for (var i=0; i<2; i++) {
+  for (var i=0; i<5; i++) {
     var x = random(25, width -25);
     var y = random(25, height -25);
     vehicles[i] = new Vehicle(x, y);
