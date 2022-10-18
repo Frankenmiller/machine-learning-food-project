@@ -4,8 +4,11 @@ class Vehicle {
     this.velocity = createVector(0, -2);
     this.position = createVector(x, y);
     this.r = 6;
-    this.maxspeed = 8;
-    this.maxforce = 0.5;
+    this.maxspeed = 5;
+    this.maxforce = 1.0;
+    this.dna = [];
+    this.dna[0] = random(-5, 5);
+    this.dna[1] = random(-5, 5);
   }
 
   // Method to update location
@@ -24,6 +27,16 @@ class Vehicle {
     this.acceleration.add(force);
   }
 
+  behaviors = function(good, bad) {
+    var steerG = this.eat(good);
+    var steerB = this.eat(bad);
+
+    steerG.mult(this.dna[0]);
+    steerB.mult(this.dna[1]);
+    this.applyForce(steerG);
+    this.applyForce(steerB);
+  }
+
   eat = function(list) {
     var record = Infinity;
     var closest = -1;
@@ -34,11 +47,13 @@ class Vehicle {
         closest = i;
       }
     }
-    if (record < 5) {
+    if (record < 8) {
       list.splice(closest, 1);
     } else if (closest != -1) {
-      this.seek(list[closest]);
+      // if another bug arises you can change this line to (closest > -1)
+      return this.seek(list[closest]);
     }
+    return createVector(0, 0);
   }
 
   // A method that calculates a steering force towards a target
@@ -53,24 +68,28 @@ class Vehicle {
     // Steering = Desired minus velocity
     var steer = p5.Vector.sub(desired, this.velocity);
     steer.limit(this.maxforce); // Limit to maximum steering force
-
-    this.applyForce(steer);
+    return steer;
+    // this.applyForce(steer);
   }
 
   display() {
     // Draw a triangle rotated in the direction of velocity
-    let theta = this.velocity.heading() + PI / 2;
+    let angle = this.velocity.heading() + PI / 2;
     fill(127);
     stroke(200);
     strokeWeight(1);
     push();
     translate(this.position.x, this.position.y);
-    rotate(theta);
+    rotate(angle);
     beginShape();
     vertex(0, -this.r * 2);
     vertex(-this.r, this.r * 2);
     vertex(this.r, this.r * 2);
     endShape(CLOSE);
+    stroke(0, 255, 0);
+    line(0, 0, 0, this.dna[0] * 10);
+    stroke(255, 0, 0);
+    line(0, 0, 0, this.dna[1] * 10);
     pop();
   }
 }

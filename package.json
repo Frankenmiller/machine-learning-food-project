@@ -1,0 +1,20 @@
+{
+  "name": "machine-learning-food-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sketch.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frankenmiller/machine-learning-food-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/frankenmiller/machine-learning-food-project/issues"
+  },
+  "homepage": "https://github.com/frankenmiller/machine-learning-food-project#readme"
+}

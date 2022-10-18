@@ -25,12 +25,12 @@ function draw() {
   for (var i=0; i<food.length; i++) {
     fill(245,222,179);
     noStroke();
-    ellipse(food[i].x, food[i].y, 12, 12);
+    ellipse(food[i].x, food[i].y, 15, 15);
     fill(92, 64, 51);
-    ellipse(food[i].x + 3, food[i].y + 0, 2, 2);
-    ellipse(food[i].x - 2.5, food[i].y + 3, 2, 2);
-    ellipse(food[i].x + 2, food[i].y - 3, 2, 2);
-    ellipse(food[i].x - 3, food[i].y - 2.5, 2, 2);
+    ellipse(food[i].x + 3, food[i].y + 0, 2.5, 2.5);
+    ellipse(food[i].x - 2.5, food[i].y + 3, 2.5, 2.5);
+    ellipse(food[i].x + 2, food[i].y - 3, 2.5, 2.5);
+    ellipse(food[i].x - 3, food[i].y - 2.5, 2.5, 2.5);
     ellipse(food[i].x, food[i].y, 2, 2);
   }
 
@@ -44,8 +44,9 @@ function draw() {
   }
 
 
-  vehicle.eat(food);
-  vehicle.eat(poison);
+
+  vehicle.behaviors(food, poison);
+  // vehicle.eat(poison);
   vehicle.update();
   vehicle.display();
 
