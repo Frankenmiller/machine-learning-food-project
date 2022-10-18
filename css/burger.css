@@ -162,7 +162,7 @@
 }
 
 .soc-icon-container {
-    margin-left: calc(50% - 225px);
+    margin-left: calc(50% - 197px);
     display: block;    
 }
 
@@ -197,9 +197,10 @@
     margin-left: 50%;
     transform: translateX(-50%);    
     font-family: sans-serif;
+    font-weight: 550;
     text-align: center;
     width: 80%;
-    font-size: 21px;
+    font-size: 15px;
     white-space: normal;
 }
 
