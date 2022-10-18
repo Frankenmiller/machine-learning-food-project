@@ -7,14 +7,14 @@ class Vehicle {
     this.maxspeed = 1;
     this.maxforce = .18;
     this.dna = [];
-    this.dna[0] = random(-5, 5);
-    this.dna[1] = random(-5, 5);
+    this.dna[0] = random(-2, 2);
+    this.dna[1] = random(-2, 2);
     this.health = 1;
   }
 
   // Method to update location
   update() {
-    this.health -= 0.001
+    this.health -= 0.0025
     // Update velocity
     this.velocity.add(this.acceleration);
     // Limit speed
@@ -30,7 +30,7 @@ class Vehicle {
   }
 
   behaviors = function(good, bad) {
-    var steerG = this.eat(good, 0.1);
+    var steerG = this.eat(good, 0.2);
     var steerB = this.eat(bad, -0.5);
 
     steerG.mult(this.dna[0]);
