@@ -4,7 +4,7 @@ let poison = [];
 
 function setup() {
   createCanvas(360, 600).center('horizontal');
-  for (var i=0; i<10; i++) {
+  for (var i=0; i<5; i++) {
     var x = random(25, width -25);
     var y = random(25, height -25);
     vehicles[i] = new Vehicle(x, y);
@@ -28,6 +28,11 @@ function draw() {
     var x = random(25, width -25);
     var y = random(25, height -25);
     food.push(createVector(x, y));
+  }
+  if (random(1) < 0.001) {
+    var x = random(25, width -25);
+    var y = random(25, height -25);
+    poison.push(createVector(x, y));
   }
 
   for (var i=0; i<food.length; i++) {

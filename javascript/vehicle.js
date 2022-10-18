@@ -3,13 +3,19 @@ class Vehicle {
     this.acceleration = createVector(0, 0);
     this.velocity = createVector(0, -2);
     this.position = createVector(x, y);
-    this.r = 6;
+    this.r = 4;
     this.maxspeed = 1;
     this.maxforce = .18;
-    this.dna = [];
-    this.dna[0] = random(-2, 2);
-    this.dna[1] = random(-2, 2);
     this.health = 1;
+    this.dna = [];
+    // food weight
+    this.dna[0] = random(-2, 2);
+    // poison weight
+    this.dna[1] = random(-2, 2);
+    // food perception
+    this.dna[2] = random(100);
+    // poison perception
+    this.dna[3] = random(100);
   }
 
   // Method to update location
@@ -20,7 +26,7 @@ class Vehicle {
     // Limit speed
     this.velocity.limit(this.maxspeed);
     this.position.add(this.velocity);
-    // Reset accelerationelertion to 0 each cycle
+    // Reset accelertion to 0 each cycle
     this.acceleration.mult(0);
   }
 
@@ -30,8 +36,8 @@ class Vehicle {
   }
 
   behaviors = function(good, bad) {
-    var steerG = this.eat(good, 0.2);
-    var steerB = this.eat(bad, -0.5);
+    var steerG = this.eat(good, 0.2, this.dna[2]);
+    var steerB = this.eat(bad, -0.5, this.dna[3]);
 
     steerG.mult(this.dna[0]);
     steerB.mult(this.dna[1]);
@@ -39,12 +45,12 @@ class Vehicle {
     this.applyForce(steerB);
   }
 
-  eat = function(list, nutrition) {
+  eat = function(list, nutrition, perception) {
     var record = Infinity;
     var closest = -1;
     for (var i=0; i<list.length; i++) {
       var d = dist(this.position.x, this.position.y, list[i].x, list[i].y);
-      if (d < record) {
+      if (d < record && d < perception) {
         record = d;
         closest = i;
       }
@@ -110,10 +116,25 @@ class Vehicle {
     push();
     translate(this.position.x, this.position.y);
     rotate(angle);
-    stroke(255, 0, 0);
-    rect(-1, 0, 1, this.dna[0] * 20);
-    stroke(0, 255, 0);
-    rect(-1, 0, 1, this.dna[1] * 20);
+    var food_color = color(0, 255, 0); // green means finds food tasty
+    if (this.dna[0] < 0) {
+      food_color = color(255, 255, 0); // yellow means no attraction to food
+    }
+    var poison_color = color(255, 127, 0); // orange means finds shit tasty
+    if (this.dna[1] < 0) {
+      poison_color = color(255, 0, 0); // red means repelled from poison
+    }
+    stroke(poison_color);
+    noFill();
+    // attraction to poison
+    rect(6.5, -7.5, 1, -abs(this.dna[0] * 20));
+    // perception to poison
+    ellipse(0, 0, this.dna[2] * 2);
+    stroke(food_color);
+    // attraction to food
+    rect(-6.5, -7.5, 1, -abs(this.dna[1] * 20));
+    // perception to food
+    ellipse(0, 0, this.dna[3] * 2);
 
     var BLACK = color(0, 0, 0);
     var WHITE = color(255, 255, 255);
@@ -123,11 +144,14 @@ class Vehicle {
     fill(COLOR);
     strokeWeight(2);
     stroke(BORDER);
-    beginShape();
-    vertex(0, -this.r * 2);
-    vertex(-this.r, this.r * 2);
-    vertex(this.r, this.r * 2);
-    endShape(CLOSE);
+    ellipse(0, 0, 2 * this.r)
+    ellipse(0, -2 * (this.r), 2 * this.r)
+    ellipse(0, 2 * (this.r), 2 * this.r)
+    // beginShape();
+    // vertex(0, -this.r * 2);
+    // vertex(-this.r, this.r * 2);
+    // vertex(this.r, this.r * 2);
+    // endShape(CLOSE);
     pop();
   }
 }
