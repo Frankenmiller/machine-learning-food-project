@@ -1,5 +1,7 @@
+var mut_rate = 0.01;
+
 class Termite {
-  constructor(x, y) {
+  constructor(x, y, dna) {
     this.acceleration = createVector(0, 0);
     this.velocity = createVector(0, -2);
     this.position = createVector(x, y);
@@ -8,14 +10,33 @@ class Termite {
     this.maxforce = .18;
     this.health = 1;
     this.dna = [];
-    // food weight
-    this.dna[0] = random(-2, 2);
-    // poison weight
-    this.dna[1] = random(-2, 2);
-    // food perception
-    this.dna[2] = random(10, 70);
-    // poison perception
-    this.dna[3] = random(10, 70);
+    if (dna == undefined) {
+      // food weight
+      this.dna[0] = random(-2, 2);
+      // poison weight
+      this.dna[1] = random(-2, 2);
+      // food perception
+      this.dna[2] = random(10, 70);
+      // poison perception
+      this.dna[3] = random(10, 70);
+    } else {
+      this.dna[0] = dna[0]; // attract/repel to food
+      if (random(1) < mut_rate) {
+        this.dna[0] += random(-0.2, 0.2);
+      }
+      this.dna[1] = dna[1]; // attract/repel to poison
+      if (random(1) < mut_rate) {
+        this.dna[1] += random(-0.2, 0.2);
+      }
+      this.dna[2] = dna[2]; // perception to food
+      if (random(1) < mut_rate) {
+        this.dna[2] += random(-10, 10);
+      }
+      this.dna[3] = dna[3]; // perception to poison
+      if (random(1) < mut_rate) {
+        this.dna[3] += random(-10, 10);
+      }
+    }
   }
 
   // Method to update location
@@ -43,7 +64,7 @@ class Termite {
   }
 
   clone = function() { // <!---------------------------------- clone method -->
-    if (random(1) < 0.0005) {
+    if (random(1) < 0.0009) {
       return new Termite(this.position.x, this.position.y, this.dna);
     } else {
       return null;

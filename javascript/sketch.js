@@ -15,7 +15,7 @@ if (screen.width > 700) {
 
 function setup() {
   createCanvas(canvas_width, canvas_height).center('horizontal');
-  for (var i=0; i<1; i++) { // <!-------------- initial number of termites -->
+  for (var i=0; i<5; i++) { // <!-------------- initial number of termites -->
     var x = random(25, width -25);
     var y = random(25, height -25);
     termites[i] = new Termite(x, y);
@@ -35,12 +35,12 @@ function setup() {
 function draw() {
   background(100);
 
-  if (random(1) < 0.01) { // <!-------------------------- replenish food ---->
+  if (random(1) < 0.025) { // <!-------------------------- replenish food ---->
     var x = random(25, width -25);
     var y = random(25, height -25);
     food.push(createVector(x, y));
   }
-  if (random(1) < 0.001) { // <!--------------------- scatter random poison -->
+  if (random(1) < 0.003) { // <!--------------------- scatter random poison -->
     var x = random(25, width -25);
     var y = random(25, height -25);
     poison.push(createVector(x, y));
@@ -76,10 +76,17 @@ function draw() {
 
     var offspring = termites[i].clone();
     if (offspring != null) {
+      var x = termites[i].position.x;
+      var y = termites[i].position.y;
+      food.push(createVector(x + 10, y - 10));      
+      food.push(createVector(x - 10, y - 10));    
       termites.push(offspring);
     }
 
     if (termites[i].dead()) {
+      var x = termites[i].position.x;
+      var y = termites[i].position.y;
+      food.push(createVector(x, y));
       termites.splice(i, 1);
     }
   }
