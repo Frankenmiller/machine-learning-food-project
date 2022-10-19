@@ -15,20 +15,17 @@ if (screen.width > 700) {
 
 function setup() {
   createCanvas(canvas_width, canvas_height).center('horizontal');
-  for (var i=0; i<1; i++) {
-    // number of termites
+  for (var i=0; i<1; i++) { // <!-------------- initial number of termites -->
     var x = random(25, width -25);
     var y = random(25, height -25);
     termites[i] = new Termite(x, y);
   }
-  for (var i=0; i<50; i++) {
-    // volume of food
+  for (var i=0; i<50; i++) { // <!----------------------- volume of food ---->
     var x = random(25, width -25);
     var y = random(25, height -25);
     food.push(createVector(x, y));
   }
-  for (var i=0; i<20; i++) {
-    // volume of poison
+  for (var i=0; i<20; i++) { // <!--------------------- volume of poison ---->
     var x = random(25, width -25);
     var y = random(25, height -25);
     poison.push(createVector(x, y));
@@ -38,18 +35,18 @@ function setup() {
 function draw() {
   background(100);
 
-  if (random(1) < 0.01) {
+  if (random(1) < 0.01) { // <!-------------------------- replenish food ---->
     var x = random(25, width -25);
     var y = random(25, height -25);
     food.push(createVector(x, y));
-  } // replenish food
-  if (random(1) < 0.001) {
+  }
+  if (random(1) < 0.001) { // <!--------------------- scatter random poison -->
     var x = random(25, width -25);
     var y = random(25, height -25);
     poison.push(createVector(x, y));
-  } // scatter random poison
+  }
 
-  for (var i=0; i<food.length; i++) {
+  for (var i=0; i<food.length; i++) { // <!--------------------- draw food -->
     fill(245,222,179);
     noStroke();
     ellipse(food[i].x, food[i].y, 15, 15);
@@ -61,7 +58,7 @@ function draw() {
     ellipse(food[i].x, food[i].y, 2, 2);
   }
 
-  for (var i=0; i<poison.length; i++) {
+  for (var i=0; i<poison.length; i++) { // <!------------------ draw posion -->
     fill(92, 64, 51);
     noStroke();
     ellipse(poison[i].x + 0, poison[i].y - 3, 8, 8);
@@ -85,6 +82,5 @@ function draw() {
     if (termites[i].dead()) {
       termites.splice(i, 1);
     }
-
   }
 }

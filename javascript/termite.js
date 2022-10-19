@@ -20,14 +20,11 @@ class Termite {
 
   // Method to update location
   update() {
-    this.health -= 0.0025
-    // Update velocity
-    this.velocity.add(this.acceleration);
-    // Limit speed
-    this.velocity.limit(this.maxspeed);
-    this.position.add(this.velocity);
-    // Reset accelertion to 0 each cycle
-    this.acceleration.mult(0);
+    this.health -= 0.0025 // this causes the termite to grow old
+    this.velocity.add(this.acceleration); // Update velocity
+    this.velocity.limit(this.maxspeed); // Limit speed
+    this.position.add(this.velocity); 
+    this.acceleration.mult(0); // Reset accelertion to 0 each cycle
   }
 
   applyForce(force) {
@@ -78,17 +75,13 @@ class Termite {
   // A method that calculates a steering force towards a target
   // STEER = DESIRED MINUS VELOCITY
   seek(target) { // <!--------------------------------------- seek method -->
-
     var desired = p5.Vector.sub(target, this.position); // A vector pointing from the location to the target
-
     // Scale to maximum speed
     desired.setMag(this.maxspeed);
-
     // Steering = Desired minus velocity
     var steer = p5.Vector.sub(desired, this.velocity);
     steer.limit(this.maxforce); // Limit to maximum steering force
     return steer;
-    // this.applyForce(steer);
   }
 
   dead = function() {
