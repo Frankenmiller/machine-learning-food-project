@@ -5,16 +5,19 @@ let poison = [];
 function setup() {
   createCanvas(360, 600).center('horizontal');
   for (var i=0; i<5; i++) {
+    // number of termites
     var x = random(25, width -25);
     var y = random(25, height -25);
     vehicles[i] = new Vehicle(x, y);
   }
   for (var i=0; i<50; i++) {
+    // volume of food
     var x = random(25, width -25);
     var y = random(25, height -25);
     food.push(createVector(x, y));
   }
   for (var i=0; i<20; i++) {
+    // volume of poison
     var x = random(25, width -25);
     var y = random(25, height -25);
     poison.push(createVector(x, y));
@@ -28,12 +31,12 @@ function draw() {
     var x = random(25, width -25);
     var y = random(25, height -25);
     food.push(createVector(x, y));
-  }
+  } // replenish food
   if (random(1) < 0.001) {
     var x = random(25, width -25);
     var y = random(25, height -25);
     poison.push(createVector(x, y));
-  }
+  } // scatter random poison
 
   for (var i=0; i<food.length; i++) {
     fill(245,222,179);
@@ -56,15 +59,20 @@ function draw() {
     ellipse(poison[i].x, poison[i].y + 2, 8, 8);
   }
 
-
   for (var i=vehicles.length -1; i>=0; i--) {
     vehicles[i].boundaries();
     vehicles[i].behaviors(food, poison);
     vehicles[i].update();
     vehicles[i].display();
 
+    var offspring = vehicles[i].clone();
+    if (offspring != null) {
+      vehicles.push(offspring);
+    }
+    
     if (vehicles[i].dead()) {
       vehicles.splice(i, 1);
     }
+
   }
 }

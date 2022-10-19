@@ -45,6 +45,14 @@ class Vehicle {
     this.applyForce(steerB);
   }
 
+  clone = function() {
+    if (random(1) < 0.001) {
+      return new Vehicle(this.position.x, this.position.y, this.dna);
+    } else {
+      return null;
+    }
+  }
+
   eat = function(list, nutrition, perception) {
     var record = Infinity;
     var closest = null;
