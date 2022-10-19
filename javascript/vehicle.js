@@ -4,7 +4,7 @@ class Vehicle {
     this.velocity = createVector(0, -2);
     this.position = createVector(x, y);
     this.r = 4;
-    this.maxspeed = 1;
+    this.maxspeed = 2.5;
     this.maxforce = .18;
     this.health = 1;
     this.dna = [];
@@ -13,9 +13,9 @@ class Vehicle {
     // poison weight
     this.dna[1] = random(-2, 2);
     // food perception
-    this.dna[2] = random(100);
+    this.dna[2] = random(10, 70);
     // poison perception
-    this.dna[3] = random(100);
+    this.dna[3] = random(10, 70);
   }
 
   // Method to update location
@@ -47,20 +47,22 @@ class Vehicle {
 
   eat = function(list, nutrition, perception) {
     var record = Infinity;
-    var closest = -1;
-    for (var i=0; i<list.length; i++) {
+    var closest = null;
+    for (var i=list.length-1; i>=0; i--) {
       var d = dist(this.position.x, this.position.y, list[i].x, list[i].y);
-      if (d < record && d < perception) {
-        record = d;
-        closest = i;
+      if (d < (5 * this.maxspeed)) {
+        list.splice(i, 1);
+        this.health += nutrition;
+      } else {
+        if (d < record && d < perception) {
+          record = d;
+          closest = list[i];
+        }
       }
     }
-    if (record < 8) {
-      list.splice(closest, 1);
-      this.health += nutrition;
-    } else if (closest != -1) {
+    if (closest != null) {
       // if another bug arises you can change this line to (closest > -1)
-      return this.seek(list[closest]);
+      return this.seek(closest);
     }
     return createVector(0, 0);
   }

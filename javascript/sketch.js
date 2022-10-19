@@ -14,7 +14,7 @@ function setup() {
     var y = random(25, height -25);
     food.push(createVector(x, y));
   }
-  for (var i=0; i<10; i++) {
+  for (var i=0; i<20; i++) {
     var x = random(25, width -25);
     var y = random(25, height -25);
     poison.push(createVector(x, y));
