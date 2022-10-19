@@ -3,9 +3,20 @@
     #troy-lodge {
         width: 300px;
     }
+    #title {
+        font-size: 12px;
+        top: -7.5px;        
+    }
+    body {
+        margin-top: 40px;    
+    }
 }
 /* iPad upright */
 @media only screen and (min-width: 700px) {  
+    #title {
+        font-size: 18px;
+        top: -7.5px;        
+    }
     .soc-icon-container {
     }
     .mobile-nav-right a {
@@ -27,12 +38,15 @@
         transform: translate(-50%, -12.5%);
     }
     #about {
-        font-size: 25px;
+        font-size: 21px;
         width: 80%;
         max-width: 625px;
         color: #FFF;
         transform: translate(-50%, -25%);
     }
+    body {
+        margin-top: 60px;    
+    }    
 }
     /* iPad sideways */
 @media only screen and (min-width: 1179px) {  

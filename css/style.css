@@ -10,8 +10,6 @@ body {
 }
 
 #title {
-	font-size: 12px;
-	top: -7.5px;
 	left: 50%;
 	color: #FFF;
 	transform: translateX(-50%);

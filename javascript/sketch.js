@@ -1,14 +1,25 @@
-let vehicles = [];
+let termites = [];
 let food = [];
 let poison = [];
 
+let canvas_width;
+let canvas_height;
+
+if (screen.width > 700) {
+  canvas_width = 400;
+  canvas_height = 650;
+} else {
+  canvas_width = 360;
+  canvas_height = 600;
+}
+
 function setup() {
-  createCanvas(360, 600).center('horizontal');
-  for (var i=0; i<5; i++) {
+  createCanvas(canvas_width, canvas_height).center('horizontal');
+  for (var i=0; i<1; i++) {
     // number of termites
     var x = random(25, width -25);
     var y = random(25, height -25);
-    vehicles[i] = new Vehicle(x, y);
+    termites[i] = new Termite(x, y);
   }
   for (var i=0; i<50; i++) {
     // volume of food
@@ -25,9 +36,9 @@ function setup() {
 }
 
 function draw() {
-  background(51);
+  background(100);
 
-  if (random(1) < 0.005) {
+  if (random(1) < 0.01) {
     var x = random(25, width -25);
     var y = random(25, height -25);
     food.push(createVector(x, y));
@@ -59,19 +70,20 @@ function draw() {
     ellipse(poison[i].x, poison[i].y + 2, 8, 8);
   }
 
-  for (var i=vehicles.length -1; i>=0; i--) {
-    vehicles[i].boundaries();
-    vehicles[i].behaviors(food, poison);
-    vehicles[i].update();
-    vehicles[i].display();
 
-    var offspring = vehicles[i].clone();
+  for (var i=termites.length -1; i>=0; i--) {
+    termites[i].boundaries();
+    termites[i].behaviors(food, poison);
+    termites[i].update();
+    termites[i].display();
+
+    var offspring = termites[i].clone();
     if (offspring != null) {
-      vehicles.push(offspring);
+      termites.push(offspring);
     }
-    
-    if (vehicles[i].dead()) {
-      vehicles.splice(i, 1);
+
+    if (termites[i].dead()) {
+      termites.splice(i, 1);
     }
 
   }

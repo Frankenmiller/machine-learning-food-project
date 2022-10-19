@@ -1,4 +1,4 @@
-class Vehicle {
+class Termite {
   constructor(x, y) {
     this.acceleration = createVector(0, 0);
     this.velocity = createVector(0, -2);
@@ -45,15 +45,15 @@ class Vehicle {
     this.applyForce(steerB);
   }
 
-  clone = function() {
-    if (random(1) < 0.001) {
-      return new Vehicle(this.position.x, this.position.y, this.dna);
+  clone = function() { // <!---------------------------------- clone method -->
+    if (random(1) < 0.0005) {
+      return new Termite(this.position.x, this.position.y, this.dna);
     } else {
       return null;
     }
   }
 
-  eat = function(list, nutrition, perception) {
+  eat = function(list, nutrition, perception) { // <!---------- eat method -->
     var record = Infinity;
     var closest = null;
     for (var i=list.length-1; i>=0; i--) {
@@ -77,7 +77,7 @@ class Vehicle {
 
   // A method that calculates a steering force towards a target
   // STEER = DESIRED MINUS VELOCITY
-  seek(target) {
+  seek(target) { // <!--------------------------------------- seek method -->
 
     var desired = p5.Vector.sub(target, this.position); // A vector pointing from the location to the target
 
@@ -92,7 +92,7 @@ class Vehicle {
   }
 
   dead = function() {
-    return (this.health < 0);
+    return (this.health <= 0);
   }
 
   boundaries = function() {
@@ -120,7 +120,7 @@ class Vehicle {
     }
   }
 
-  display() {
+  display() { // <!---------------------------------------- display method -->
     // Draw a triangle rotated in the direction of velocity
     let angle = this.velocity.heading() + PI / 2;
     push();
@@ -165,3 +165,14 @@ class Vehicle {
     pop();
   }
 }
+
+
+  // spawn = function() { // <!------------------------------ spawn method -->
+  //   if (random(1) < 0.005) {
+  //     var x = random(25, width -25);
+  //     var y = random(25, height -25);      
+  //     return new Termite(x, y);
+  //   } else {
+  //     return null;
+  //   }
+  // }
